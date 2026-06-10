@@ -3,53 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>m+labs</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="apple-touch-icon" sizes="180x180" href="/mpluslabs/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/mpluslabs/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/mpluslabs/favicon-16x16.png">
-    <link rel="manifest" href="/mpluslabs/site.webmanifest">
-
+  <link rel="icon" type="image/png" sizes="32x32" href="/mpluslabs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/mpluslabs/favicon-16x16.png">
+  <link rel="manifest" href="/mpluslabs/site.webmanifest">
   <link rel="stylesheet" href="styles.css" />
   <script src="script.js" defer></script>
 </head>
-
 <body>
   <div class="night-sky" id="night-sky" aria-hidden="true"></div>
-
   <header class="site-header">
     <a href="#" class="logo-wrap" aria-label="m+labs home">
       <img src="assets/mpluslabs-logo.svg" alt="m+labs logo" class="logo" />
     </a>
-
     <nav>
       <a href="#about">About</a>
       <a href="#work">Work</a>
       <a href="#links">Links</a>
     </nav>
   </header>
-
   <main>
     <section class="hero">
-      <p class="eyebrow">AI / ML research & technology</p>
-
-      <h1>Small lab. Big night-sky ideas.</h1>
-
+      <!-- the m+labs X mark, drawn as a constellation -->
+      <svg class="constellation" viewBox="0 0 300 300" aria-hidden="true">
+        <line x1="60" y1="60" x2="150" y2="150" />
+        <line x1="240" y1="60" x2="150" y2="150" />
+        <line x1="60" y1="240" x2="150" y2="150" />
+        <line x1="240" y1="240" x2="150" y2="150" />
+        <circle cx="60" cy="60" r="2.5" />
+        <circle cx="240" cy="60" r="2" />
+        <circle cx="60" cy="240" r="2" />
+        <circle cx="240" cy="240" r="2.5" />
+        <circle cx="150" cy="150" r="3.5" class="c-core" />
+        <text x="160" y="142">m+labs</text>
+      </svg>
+      <p class="eyebrow">AI / ML research &amp; technology</p>
+      <h1>Small lab.<br />Big <span class="grad">night-sky</span> ideas.</h1>
       <p class="intro">
         m+labs is a tiny research and technology space focused on language models,
         useful tools, experiments, and whatever feels interesting enough to build.
       </p>
-
       <div class="hero-actions">
         <a href="https://huggingface.co/MPlusLabs" class="button primary">Hugging Face</a>
         <a href="https://github.com/marissatech" class="button">GitHub</a>
       </div>
     </section>
-
     <section id="about" class="panel">
       <h2>About</h2>
       <p>
@@ -57,12 +59,9 @@
         build things, test ideas, and keep moving.
       </p>
     </section>
-
     <section id="work" class="grid"></section>
-
     <section id="links" class="panel">
       <h2>Links</h2>
-
       <div class="link-list">
         <a href="https://huggingface.co/MPlusLabs">Hugging Face →</a>
         <a href="https://github.com/marissatech">GitHub →</a>
@@ -70,7 +69,6 @@
       </div>
     </section>
   </main>
-
   <footer>
     <span>m+labs</span>
     <span>Built under the night sky.</span>
