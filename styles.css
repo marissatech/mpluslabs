@@ -1,40 +1,58 @@
+/* ============================================================
+   m+labs — AI/ML research & technology
+   Direction: the night sky is the lab. Deep space ink (not
+   flat black), Space Grotesk display, JetBrains Mono utility
+   (shared with marissatech.github.io), and one signature:
+   a constellation that draws the m+labs X mark in stars.
+   ============================================================ */
+
 :root {
-  --bg: #000000;
-  --text: #ffffff;
-  --muted: #a7a7a7;
-  --soft: #111111;
-  --softer: #181818;
-  --border: #2a2a2a;
-  --glow: rgba(215, 44, 240, 0.35);
+  --bg: #060410;              /* deep space ink, not flat black */
+  --text: #f2f0f7;
+  --muted: #9d98ad;
+  --soft: rgba(255, 255, 255, 0.03);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.22);
+  --glow: rgba(215, 44, 240, 0.28);
   --accent: #d72cf0;
   --accent-2: #7b2cf0;
+  --grad: linear-gradient(135deg, var(--accent), var(--accent-2));
+  --display: "Space Grotesk", Inter, Helvetica, sans-serif;
+  --body: Inter, Helvetica, sans-serif;
+  --mono: "JetBrains Mono", "Courier New", monospace;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: Inter, Helvetica, sans-serif;
+  font-family: var(--body);
   background:
-    radial-gradient(circle at 20% 10%, rgba(123, 44, 240, 0.18), transparent 28rem),
-    radial-gradient(circle at 85% 25%, rgba(215, 44, 240, 0.14), transparent 24rem),
+    radial-gradient(ellipse at 20% -10%, rgba(123, 44, 240, 0.16), transparent 34rem),
+    radial-gradient(ellipse at 85% 20%, rgba(215, 44, 240, 0.1), transparent 28rem),
     var(--bg);
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+::selection {
+  background: var(--accent);
+  color: #fff;
 }
+
+a { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- night sky ---------- */
 
 .night-sky {
   position: fixed;
@@ -49,118 +67,143 @@ a {
   width: 2px;
   height: 2px;
   border-radius: 999px;
-  background: #ffffff;
+  background: #fff;
   opacity: 0.7;
   animation: twinkle 3s ease-in-out infinite;
 }
 
-@keyframes twinkle {
-  0%, 100% {
-    opacity: 0.25;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.9;
-    transform: scale(1.4);
-  }
+/* depth: a few bigger, a few tinted — set from JS via .star.big / .star.tint */
+.star.big {
+  width: 3px;
+  height: 3px;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
 }
 
-/* Header */
+.star.tint {
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--glow);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.35); }
+}
+
+/* ---------- header ---------- */
 
 .site-header {
   position: sticky;
   top: 0;
   z-index: 50;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-
-  width: 100%;
-  max-width: none;
-  margin: 0;
-
-  padding:
-    22px
-    max(28px, calc((100vw - 1100px) / 2 + 28px));
-
-  background: rgba(0, 0, 0, 0.78);
+  padding: 16px max(28px, calc((100vw - 1100px) / 2 + 28px));
+  background: rgba(6, 4, 16, 0.72);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--border);
 }
 
-.logo-wrap {
-  display: inline-flex;
-  align-items: center;
-}
+.logo-wrap { display: inline-flex; align-items: center; }
 
 .logo {
   display: block;
-  width: 240px;
-  max-width: 52vw;
+  width: 150px;
+  max-width: 44vw;
   height: auto;
 }
 
 nav {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 4px;
+  font-family: var(--mono);
+  font-size: 13px;
 }
 
 nav a {
-  padding: 8px 10px;
+  position: relative;
+  padding: 8px 12px;
   color: var(--muted);
-  font-size: 15px;
-  font-weight: 600;
+  transition: color 140ms ease;
 }
 
-nav a:hover {
+/* tiny star that appears under the hovered link */
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 1px;
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--accent);
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity 140ms ease;
+}
+
+nav a:hover,
+nav a:focus-visible {
   color: var(--text);
 }
 
-section {
-  scroll-margin-top: 110px;
+nav a:hover::after,
+nav a:focus-visible::after {
+  opacity: 1;
 }
 
-/* Main */
+section { scroll-margin-top: 96px; }
+
+/* ---------- main / hero ---------- */
 
 main {
-  width: min(960px, 100%);
+  width: min(980px, 100%);
   margin: 0 auto;
-  padding: 72px 28px 36px;
+  padding: 84px 28px 36px;
 }
 
 .hero {
-  min-height: 420px;
+  position: relative;
+  min-height: 440px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .eyebrow {
-  margin: 0 0 14px;
+  margin: 0 0 18px;
   color: var(--accent);
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 h1 {
-  max-width: 780px;
+  max-width: 760px;
   margin: 0;
-  font-size: clamp(42px, 9vw, 96px);
-  line-height: 0.95;
-  letter-spacing: -0.07em;
+  font-family: var(--display);
+  font-size: clamp(44px, 8.5vw, 92px);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.045em;
+}
+
+/* the gradient lives on the idea, not the whole headline */
+h1 .grad {
+  background: linear-gradient(110deg, var(--accent) 10%, var(--accent-2) 60%, #b88bff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .intro {
-  max-width: 650px;
-  margin: 24px 0 0;
+  max-width: 620px;
+  margin: 26px 0 0;
   color: var(--muted);
   font-size: 18px;
 }
@@ -169,58 +212,127 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 30px;
+  margin-top: 32px;
 }
 
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  padding: 11px 15px;
-
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  padding: 12px 18px;
+  border: 1px solid var(--border-strong);
+  background: var(--soft);
   color: var(--text);
-
+  font-family: var(--display);
   font-size: 14px;
   font-weight: 700;
+  letter-spacing: 0.01em;
+  transition: border-color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
 }
 
 .button:hover {
-  border-color: #ffffff;
+  border-color: #fff;
+  transform: translateY(-1px);
 }
 
 .button.primary {
-  border-color: var(--accent);
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-color: transparent;
+  background: var(--grad);
 }
 
-/* Sections */
+.button.primary:hover {
+  box-shadow: 0 0 28px var(--glow);
+}
+
+/* ---------- signature: the mark as a constellation ---------- */
+
+.constellation {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.constellation line {
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 1;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: draw 2.2s ease-out 0.4s forwards;
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+.constellation circle {
+  fill: #fff;
+  opacity: 1;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.6));
+}
+
+.constellation .c-core {
+  fill: var(--accent);
+  filter: drop-shadow(0 0 6px var(--glow));
+}
+
+.constellation text {
+  fill: var(--muted);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  opacity: 0.7;
+}
+
+/* ---------- sections ---------- */
 
 .panel,
 .card {
   border: 1px solid var(--border);
-  background: rgba(10, 10, 10, 0.78);
+  background: rgba(10, 8, 20, 0.7);
   backdrop-filter: blur(12px);
 }
 
 .panel {
-  padding: 28px;
+  padding: 30px;
   margin-bottom: 18px;
 }
 
 h2 {
-  margin: 0 0 10px;
-  font-size: 22px;
-  letter-spacing: -0.03em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* a single star marks each section, echoing the sky */
+h2::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--glow);
 }
 
 .panel p {
   max-width: 720px;
   margin: 0;
   color: var(--muted);
+  font-size: 16px;
 }
+
+/* ---------- cards ---------- */
 
 .grid {
   display: grid;
@@ -230,29 +342,43 @@ h2 {
 }
 
 .card {
-  min-height: 170px;
-  padding: 22px;
-  transition:
-    transform 150ms ease,
-    border-color 150ms ease,
-    box-shadow 150ms ease;
+  position: relative;
+  min-height: 180px;
+  padding: 24px;
+  overflow: hidden;
+  transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .card:hover {
   transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 40px var(--glow);
+  border-color: var(--border-strong);
+  box-shadow: 0 0 36px var(--glow);
 }
 
 .card-icon {
-  margin-bottom: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 26px;
+  border: 1px solid var(--border);
+  background: var(--soft);
   color: var(--accent);
-  font-size: 24px;
+  font-size: 18px;
+  transition: border-color 150ms ease;
+}
+
+.card:hover .card-icon {
+  border-color: var(--accent);
 }
 
 .card h3 {
   margin: 0 0 8px;
-  font-size: 18px;
+  font-family: var(--display);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .card p {
@@ -261,6 +387,8 @@ h2 {
   font-size: 14px;
 }
 
+/* ---------- links ---------- */
+
 .link-list {
   display: flex;
   flex-wrap: wrap;
@@ -268,69 +396,82 @@ h2 {
 }
 
 .link-list a {
-  padding: 10px 12px;
+  padding: 10px 14px;
   border: 1px solid var(--border);
   background: var(--soft);
   color: var(--text);
-  font-size: 14px;
-  font-weight: 700;
+  font-family: var(--mono);
+  font-size: 13px;
+  transition: border-color 140ms ease, color 140ms ease;
 }
 
 .link-list a:hover {
-  border-color: #ffffff;
+  border-color: var(--accent);
+  color: #fff;
 }
 
-/* Footer */
+/* ---------- footer ---------- */
 
 footer {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-
-  width: min(960px, 100%);
+  width: min(980px, 100%);
   margin: 0 auto;
   padding: 24px 28px 44px;
-
   color: var(--muted);
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: 12px;
 }
 
-/* Mobile */
+/* ---------- mobile ---------- */
+
+@media (max-width: 880px) {
+  .constellation { display: none; }
+}
 
 @media (max-width: 760px) {
   .site-header {
     align-items: flex-start;
     flex-direction: column;
-    padding: 20px;
+    gap: 10px;
+    padding: 16px 20px;
   }
 
-  .logo {
-    width: 220px;
-    max-width: 80vw;
-  }
+  .logo { width: 130px; max-width: 60vw; }
 
-  nav {
-    flex-wrap: wrap;
-  }
+  nav { flex-wrap: wrap; margin-left: -12px; }
 
-  main {
-    padding: 46px 20px 28px;
-  }
+  main { padding: 52px 20px 28px; }
 
-  .hero {
-    min-height: 360px;
-  }
+  .hero { min-height: 360px; }
 
-  .intro {
-    font-size: 16px;
-  }
+  .intro { font-size: 16px; }
 
-  .grid {
-    grid-template-columns: 1fr;
-  }
+  .grid { grid-template-columns: 1fr; }
 
   footer {
     flex-direction: column;
+    gap: 6px;
     padding: 22px 20px 36px;
+  }
+}
+
+/* ---------- accessibility ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .star { animation: none; opacity: 0.5; }
+
+  .constellation line {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
   }
 }
